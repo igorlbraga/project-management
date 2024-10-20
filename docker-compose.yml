@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  trello-db:
+    image: mysql:latest
+    container_name: taskify-database
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=8731
+      - MYSQL_USER=hakcof
+      - MYSQL_PASSWORD=8731
+      - MYSQL_DATABASE=taskify
+
+    volumes:
+      - mysql-vol:/var/lib/mysql
+volumes:
+  mysql-vol:
+    driver: local
