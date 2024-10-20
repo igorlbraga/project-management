@@ -10,7 +10,7 @@ export default clerkMiddleware((auth, request) => {
     if (auth().userId) {
         if (isPublicRoute(request) || (!auth().orgId && !isSelectOrgRoute(request))) {
             let path = "/select-org"
-            if (auth().orgId) path = `organization/${auth().orgId}`
+            if (auth().orgId) path = `/organization/${auth().orgId}`
             return NextResponse.redirect(new URL(path, request.url))
         }
     }

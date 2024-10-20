@@ -16,8 +16,8 @@ export async function POST(req: Request) {
             signature,
             process.env.STRIPE_WEBHOOK_SECRET!
         )
-    } catch {
-        return new NextResponse("Webhook error", { status: 400 })
+    } catch (error) {
+        return NextResponse.json(error, { status: 400 })
     }
 
     const session = event.data.object as Stripe.Checkout.Session
@@ -60,7 +60,11 @@ export async function POST(req: Request) {
                 )
             }
         })
+
+        return new NextResponse(null, { status: 200 })
     }
 
-    return new NextResponse(null, { status: 200 })
+    return NextResponse.json({
+        message: "Not Found"
+    }, { status: 404 })
 }
