@@ -18,7 +18,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { items, boardId } = data;
+  const { items, boardId, listId } = data;
   let updatedCards;
 
   try {
@@ -34,13 +34,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         },
         data: {
           order: card.order,
-          listId: card.listId,
+          listId: listId,
         },
       })
     );
 
     updatedCards = await db.$transaction(transaction);
-  } catch (error) {
+  } catch {
     return {
       error: "Failed to reorder.",
     };
